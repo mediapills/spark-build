@@ -488,7 +488,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "spark_mesos_cluster_driver_submit_to_first_launch_p50",
+          "expr": "spark_mesos_drivers_submit_to_first_launch_p50_upper",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{task_name}}",
@@ -568,7 +568,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "spark_mesos_cluster_executor_start_to_all_launched_mean / 1000",
+          "expr": "spark_mesos_start_to_all_launched_mean_mean / 1000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -648,7 +648,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(spark_mesos_cluster_driver_finished_count_mesos_state_task_failed) by (task_name)",
+          "expr": "sum(spark_mesos_drivers_finished_count_mesos_state_task_failed) by (task_name)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -813,7 +813,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(spark_mesos_cluster_executor_start_to_all_launched_mean / 1000) by (dcos_space)",
+          "expr": "avg(spark_mesos_start_to_all_launched_mean_mean / 1000) by (dcos_space)",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"

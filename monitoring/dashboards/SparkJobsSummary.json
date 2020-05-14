@@ -85,13 +85,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mesos_master_allocator_role_quota_offered_or_allocated{resource=\"cpus\", role=\"dispatcher-mixed-0-dispatcher-role\"}",
+          "expr": "mesos_allocator_quota_roles_resources_offered_or_allocated{resource=\"cpus\", role=\"dispatcher-mixed-0-dispatcher-role\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "C"
         },
         {
-          "expr": "mesos_master_allocator_role_quota_guarantee{resource=\"cpus\", role=\"dispatcher-mixed-0-dispatcher-role\"}",
+          "expr": "mesos_allocator_quota_roles_resources_limit{resource=\"cpus\", role=\"dispatcher-mixed-0-dispatcher-role\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "D"
@@ -177,14 +177,14 @@
       "targets": [
         {
           "$$hashKey": "object:2896",
-          "expr": "mesos_master_allocator_role_quota_offered_or_allocated{resource=\"cpus\"}",
+          "expr": "mesos_allocator_quota_roles_resources_offered_or_allocated{resource=\"cpus\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
         },
         {
           "$$hashKey": "object:2897",
-          "expr": "mesos_master_allocator_role_quota_guarantee{resource=\"cpus\"}",
+          "expr": "mesos_allocator_quota_roles_resources_limit{resource=\"cpus\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "B"
@@ -1007,7 +1007,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(spark_mesos_cluster_executor_start_to_all_launched_mean) / 1000",
+          "expr": "avg(spark_mesos_start_to_all_launched_mean_mean) / 1000",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1165,7 +1165,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "stddev(spark_mesos_cluster_executor_start_to_all_launched_mean) / 1000",
+          "expr": "stddev(spark_mesos_start_to_all_launched_mean_mean) / 1000",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
