@@ -9,7 +9,6 @@ import spark_utils as utils
 
 log = logging.getLogger(__name__)
 
-app_name = "MockTaskRunner"
 driver_cpus = None
 executor_cpus = None
 
@@ -46,7 +45,7 @@ def setup_spark(configure_security_spark, configure_universe):
 
 @pytest.mark.sanity
 def test_agent_restart_with_checkpointing_disabled():
-    (driver_task_id, driver_task, executor_task) = _submit_job_and_get_tasks()
+    (driver_task_id, driver_task, executor_task) = _submit_job_and_get_tasks(app_name="MockTaskRunner_CP_Disabled")
 
     driver_ip = sdk_networks.get_task_host(driver_task)
     executor_ip = sdk_networks.get_task_host(executor_task)
@@ -60,7 +59,9 @@ def test_agent_restart_with_checkpointing_disabled():
 
 @pytest.mark.sanity
 def test_agent_restart_with_checkpointing_enabled():
-    (driver_task_id, driver_task, executor_task) = _submit_job_and_get_tasks(extra_args=["--conf spark.mesos.checkpoint=true"])
+    (driver_task_id, driver_task, executor_task) = _submit_job_and_get_tasks(
+        app_name="MockTaskRunner_CP_Enabled",
+        extra_args=["--conf spark.mesos.checkpoint=true"])
 
     driver_ip = sdk_networks.get_task_host(driver_task)
     executor_ip = sdk_networks.get_task_host(executor_task)
@@ -71,11 +72,12 @@ def test_agent_restart_with_checkpointing_enabled():
     _kill_driver_task(driver_task_id)
 
 
-def _submit_job_and_get_tasks(extra_args=[]):
+def _submit_job_and_get_tasks(app_name, extra_args=[]):
     submit_args = ["--conf spark.driver.cores={}".format(driver_cpus),
                    "--conf spark.cores.max={}".format(executor_cpus),
                    "--conf spark.executor.cores={}".format(executor_cpus),
-                   "--class {}".format(app_name)
+                   "--conf spark.app.name={}".format(app_name),
+                   "--class MockTaskRunner"
                    ] + extra_args
 
     driver_task_id = utils.submit_job(app_url=utils.dcos_test_jar_url(),
